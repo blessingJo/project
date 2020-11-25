@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- root element of xml file -->
+<persistence 
+
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+          http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+	version="2.1">
+	
+<!--  Persistence unit -->
+	<persistence-unit name="OpuleWebsite"> 
+		<properties>
+<!-- How to connect to database. Database connection properties-->			
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/opuledb" />
+<!-- property for database user -->		
+			<property name = "javax.persistence.jdbc.user" value="root" />
+<!-- user password property -->
+			<property name = "javax.persistence.jdbc.password" value="Lorretta1$" />
+<!-- specifies connection info to the opule database -->
+			<property name = "javax.persistence.jdbc.driver" value = "com.mysql.jdbc.Driver" />
+<!-- for the sql statement -->			
+			<property name = "hibernate.show_sql" value="true" />
+<!-- to format the sql statement -->
+			<property name = "hibernate.format_sql" value="true" />
+			
+
+		</properties>
+	</persistence-unit>
+	
+</persistence>
