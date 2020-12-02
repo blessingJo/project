@@ -13,18 +13,22 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-
+//Use of JPQL queries to retrieve data from the database
 @Entity
-@Table(name = "category", catalog = "opuledb")
+@Table(name = "category", catalog = "opuledb") //retrieving info from category data table
 @NamedQueries({
+	//Find a category that has a specified name
 	@NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c ORDER BY c.name"),
+	//Count all objects in the category table
 	@NamedQuery(name = "Category.countAll", query = "SELECT COUNT(*) FROM Category"),
+	//find a category that has a specified name
 	@NamedQuery(name = "Category.findByName", query = "SELECT c FROM Category c WHERE c.name = :name")
 })
 public class Category implements java.io.Serializable {
 
 	private Integer categoryId;
 	private String name;
+	//collection of products
 	private Set<Product> products = new HashSet<Product>(0);
 
 	public Category() {

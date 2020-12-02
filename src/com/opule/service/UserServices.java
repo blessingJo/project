@@ -19,7 +19,6 @@ public class UserServices {
 	//uses UserDAO class
 	private UserDAO userDAO;
 	//UserDAO class requires an entity Manager from EMF
-	private EntityManagerFactory entityManagerFactory;
 	private EntityManager entityManager;
 	private HttpServletResponse response;
 	private HttpServletRequest request;
@@ -27,11 +26,12 @@ public class UserServices {
 	
 	
 	
-	public UserServices(HttpServletRequest request, HttpServletResponse response) { //constructor for superclass 
+	public UserServices(EntityManager entityManager, HttpServletRequest request, HttpServletResponse response) { //constructor for superclass 
 		this.request = request;
 		this.response = response;
-		entityManagerFactory = Persistence.createEntityManagerFactory("OpuleWebsite");
-		entityManager = entityManagerFactory.createEntityManager();
+		this.entityManager = entityManager;
+		//entityManagerFactory = Persistence.createEntityManagerFactory("OpuleWebsite");
+		//entityManager = entityManagerFactory.createEntityManager();
 		userDAO  = new UserDAO(entityManager);
 		
 	}

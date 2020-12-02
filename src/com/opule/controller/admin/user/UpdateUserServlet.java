@@ -1,4 +1,4 @@
-package com.opule.controller.admin;
+package com.opule.controller.admin.user;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,11 +7,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.opule.controller.admin.BasisServlet;
 import com.opule.service.UserServices;
 
 
-@WebServlet("/admin/update_user")
-public class UpdateUserServlet extends HttpServlet {
+@WebServlet("/admin/update_user") //local host extension
+
+public class UpdateUserServlet extends BasisServlet {
 	private static final long serialVersionUID = 1L;
        
 
@@ -20,7 +22,8 @@ public class UpdateUserServlet extends HttpServlet {
     }
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//doGet(request, response);
-		UserServices userServices = new UserServices(request,response);
+		//new instance of userServices for updateUser
+		UserServices userServices = new UserServices(entityManager, request,response);
 		userServices.updateUser();
 		
 	}

@@ -58,17 +58,19 @@ public class CategoryDAOTest extends CommonBaseDAOTest{
 		
 		assertNotNull(category1);
 	}
-
-	@Test
+	
+	//test case for delete category
+	@Test 
 	public void testDeleteCategory() {
 		Integer cateId = 12;
 		categoryDao.delete(cateId);
 		
-		//Trying to retrive the category from the db by using the Id, should be null
+		//Trying to retrieve the category from the db by using the Id, should be null
 		Category cate = categoryDao.get(cateId);
 		assertNull(cate);
 	}
 
+	//test case for listAll method - should return a list of all categories in console
 	@Test
 	public void testListAll() {
 		List<Category> listCate = categoryDao.listAll();
@@ -79,12 +81,37 @@ public class CategoryDAOTest extends CommonBaseDAOTest{
 		assertTrue(listCate.size() > 0);
 		//look at hibernate statement
 	}
-
+	
+	//test case for findByName JPQL query - test passes if the category exists in the database
+	@Test
+	public void testFindByName() {
+		String name = "Earrings";
+		//calling findByName method in categoryDAO
+		Category cate = categoryDao.findByName(name);
+		//
+		assertNotNull(cate);
+	}
+		
+		
+	//searches for cateName that doesnt exist in database	
+		@Test
+		public void testCategoryDoesntExist() {
+			String name = "jewel";
+			//calling findByName method in categoryDAO
+			Category cate = categoryDao.findByName(name);
+			//
+			assertNull(cate);
+		
+	
+	}
+	//test case fot the count method
 	@Test
 	public void testCount() {
 		long NoCategories = categoryDao.count();
 		
 		assertEquals(6, NoCategories);
 	}
+	
+	
 
 }

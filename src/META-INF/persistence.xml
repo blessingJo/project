@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- root element of xml file -->
+<!-- root element of xml file 
+configuration file to specify the database connection information, which can be used by Hibernate to connect to the databse-->
 <persistence 
 
 	xmlns="http://xmlns.jcp.org/xml/ns/persistence"

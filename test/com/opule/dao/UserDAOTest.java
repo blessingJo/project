@@ -26,6 +26,7 @@ public class UserDAOTest extends CommonBaseDAOTest{
 		
 	}
 
+	//test case for the create user method
 	@Test
 	public void testCreateUsers() {
 		
@@ -51,6 +52,7 @@ public class UserDAOTest extends CommonBaseDAOTest{
 					
 	}
 	
+	//test case for the update method
 	@Test
 	public void testUpdateUsers() 	{
 		Users user = new Users();
@@ -69,6 +71,7 @@ public class UserDAOTest extends CommonBaseDAOTest{
 	
 	//public void testUpdateUsers() {
 	
+	//test case for a userId that exists in the database
 	@Test
 	public void testGetUsersFound() {
 		Integer userId = 1;
@@ -91,6 +94,7 @@ public class UserDAOTest extends CommonBaseDAOTest{
 	
 		}
 	
+	//test case for the delete method
 	@Test
 	public void testDeleteUsers() {
 		Integer userId = 1;
@@ -100,6 +104,7 @@ public class UserDAOTest extends CommonBaseDAOTest{
 				
 	}
 	
+	//test case for a userId that doesn't exist in the database
 	@Test(expected = EntityNotFoundException.class)
 	public void testUserNonExistent() {
 		Integer userId = 189;
@@ -107,6 +112,7 @@ public class UserDAOTest extends CommonBaseDAOTest{
 	
 	}
 	
+	//test case for listAll, should print all user emails
 	@Test
 	public void testListAll() {
 		List<Users> listUsers = userDAO.listAll();
@@ -117,6 +123,7 @@ public class UserDAOTest extends CommonBaseDAOTest{
 		assertTrue(listUsers.size() > 0);
 	}
 	
+	//test case for the count method
 	@Test
 	public void testCount() {
 		long totalUsers = userDAO.count();
@@ -124,6 +131,7 @@ public class UserDAOTest extends CommonBaseDAOTest{
 		
 	}
 	
+	//test case for the findByEmail JPQL query
 	@Test
 	public void testFindByEmail() {
 		String email = "pbrown@opacc.co";

@@ -10,7 +10,7 @@
 	<div>
 	<br>
 	<a href="list_users">Users</a> |
-	<a href="users">Categories</a> |
+	<a href="list_category">Categories</a> |
 	<a href="users">Products</a> |
 	<a href="users">Customers</a> |
 	<a href="users">Orders</a> |

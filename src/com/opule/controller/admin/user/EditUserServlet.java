@@ -1,4 +1,4 @@
-package com.opule.controller.admin;
+package com.opule.controller.admin.user;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,24 +7,30 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.opule.controller.admin.BasisServlet;
 import com.opule.service.UserServices;
 
-@WebServlet("/admin/delete_user")
-public class DeleteUserServlet extends HttpServlet {
+//Edit user servlet
+@WebServlet("/admin/edit_user")// local host extension
+public class EditUserServlet extends BasisServlet {
+	
 	private static final long serialVersionUID = 1L;
        
- 
-    public DeleteUserServlet() {
+
+    public EditUserServlet() {
         super();
-    }
+        }
+
+	//Servlet invokes the editUser method of of the userServices class
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//new instant of the userServices class
-		UserServices userServices = new UserServices(request, response);
-		userServices.deleteUser();
-	
-		
-		
+	UserServices userServices = new UserServices(entityManager, request,response);
+		userServices.editUser();
 	}
+	
+	
+	
+	
 
-
+	
 }

@@ -1,4 +1,4 @@
-package com.opule.controller.admin;
+package com.opule.controller.admin.user;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,12 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.opule.controller.admin.BasisServlet;
 import com.opule.entity.Users;
 import com.opule.service.UserServices;
 
 
-@WebServlet("/admin/list_users")
-public class ListUsersServlet extends HttpServlet {
+@WebServlet("/admin/list_users") //local host extension 
+public class ListUsersServlet extends BasisServlet {
 	private static final long serialVersionUID = 1L;
        
     public ListUsersServlet() {
@@ -25,7 +26,8 @@ public class ListUsersServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
-		UserServices userServices = new UserServices(request, response);
+		//instance of userServices
+		UserServices userServices = new UserServices(entityManager, request, response);
 		userServices.listUser();
 		
 	}
