@@ -104,12 +104,59 @@ public class CategoryServices {
 			listCategory(message);
 			
 		}
+					
+	}
+	
+	
+	public void editCategory() throws ServletException, IOException	 {
+		int categoryId = Integer.parseInt(request.getParameter("id"));
 		
+		//calling the categoryDAO get method that returns the category object from database
+		Category category = categoryDAO.get(categoryId);
+		//setting the catgory object to the request attribute
+		request.setAttribute("category", category);
 		
-		
+		String editPage = "category_form.jsp";
+		//forwarding the request to the catgory form page 
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher(editPage);
+		requestDispatcher.forward(request, response);
 		
 	}
-	}
+	
+	public void updateCategory() throws ServletException, IOException {
+		int categoryIdd = Integer.parseInt(request.getParameter("id"));
+		String categoryName = request.getParameter("name");
+		
+		
+		//need to check if the categoryName exists or not 
+		Category categoryById = categoryDAO.get(categoryIdd);
+		Category categoryByName = categoryDAO.findByName(categoryName);
+		
+		//if the name exists and admin is trying to update the category to a name that already exists in the database
+		if (categoryByName != null && categoryById.getCategoryId() != categoryByName.getCategoryId()) {
+			
+			String message = "Category with name " + categoryName + 
+					" already exists in the database. Please choose another name!";
+			
+			request.setAttribute("message", message );
+			
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("message.jsp");
+		requestDispatcher.forward(request, response);
+					
+		} else { //update the category Name
+			categoryById.setName(categoryName);
+			categoryDAO.update(categoryById);
+			String message = "The category has been successfully updated";
+			listCategory(message);
+			
+			
+		} 
+		
+		
+	
+		}
+	
+}
 	
 	
 	
