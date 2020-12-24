@@ -1,6 +1,6 @@
 package com.opule.controller.admin.category;
 
-import com.opule.controller.admin.BasisServlet;
+import com.opule.controller.BasisServlet;
 import com.opule.service.CategoryServices;
 
 import java.io.IOException;

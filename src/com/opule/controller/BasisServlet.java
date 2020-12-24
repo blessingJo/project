@@ -1,4 +1,4 @@
-package com.opule.controller.admin;
+package com.opule.controller;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

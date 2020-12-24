@@ -6,20 +6,23 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Manage Categories Accessories Administration</title>
+
+<title>Manage Categories - Accessories Administration</title>
 </head>
 <body>
 
 	<jsp:directive.include file = "header.jsp"/>
 	<div align="center"/>
+	
 	<h2> Category Management </h2>
-	<a href= "category_form.jsp"> Create new Category</a>
+	<a href= "category_form.jsp"> Create A new Category</a>
 	<br> </br>
 	</div>
 	
-	<c:if test="${message !=null}">
-	<div align="center">  
-		<h3><i>${message}</i> </h3>
+	<c:if test="${message !=null }">
+	<div align="center"> 
+	 
+		<h3> <i>${message}</i> </h3>
 	</div>
 	</c:if>
 	
@@ -33,6 +36,7 @@
 			</tr>
 			
 			<c:forEach var="categ" items="${listCategories}" varStatus= "status">
+			
 			<tr>
 				<td>${status.index + 1}</td>
 				<td>${categ.categoryId}</td>
@@ -49,6 +53,7 @@
 			</c:forEach>		
 		</table>	
 	</div>		
+	
 	<jsp:directive.include file = "footer.jsp"/>
 
 	<!-- Declare userId in function to be able to show the user ID in the confirmation dialog 

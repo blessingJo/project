@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.opule.controller.admin.BasisServlet;
+import com.opule.controller.BasisServlet;
 import com.opule.service.UserServices;
 
 //Edit user servlet

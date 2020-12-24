@@ -5,17 +5,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 </head>
 
 <!-- not working -->
 <title>
-	<c:if test = "${Category != null}">
-		Edit Category
+	<c:if test = "${Category != null }">
+		Edit A Category
 	</c:if>
 			
 	<c:if test="${category == null}">
-		Create New Category
+		Create A New Category
 		</c:if>
 </title>
 </head>
@@ -23,14 +24,15 @@
 <body>
 
 	<jsp:directive.include file = "header.jsp"/>
+	
 	<div align="center">
 		<h2> 
 			<!-- if there is a user object in the request tben display edit user form  -->
 			<c:if test="${category != null}">
-				Edit Category
+				Edit A Category
 			</c:if>
 			<c:if test="${category == null}">
-				Create New Category </h2>
+				Create A New Category </h2>
 			</c:if>
 	</div>
 <!-- Create User 'save' function cannot be used for the edit user page
@@ -64,6 +66,7 @@
 
 	<jsp:directive.include file = "footer.jsp"/>
 </body>
+
 <script type="text/javascript">
 
 	function validateFormInput(){
