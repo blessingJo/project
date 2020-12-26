@@ -4,8 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Opule Accessories</title>
+<title>Opule Accessories Administration</title>
 </head>
+
+
 <body>
 	<jsp:directive.include file = "header.jsp"/>
 

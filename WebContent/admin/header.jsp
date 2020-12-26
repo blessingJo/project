@@ -5,16 +5,40 @@
 	</div>
 
 	<div>
-		Welcome, Admin | <a href= "logout">Logout</a>
+		Welcome, Admin | <a href= "logout">Logout </a>
 	</div>
-	<div>
-	<br>
-	<a href="list_users">Users</a> |
-	<a href="list_category">Categories</a> |
-	<a href="users">Products</a> |
-	<a href="users">Customers</a> |
-	<a href="users">Orders</a> |
-	<a href="users">Reviews</a> 
-	</br>
+	
+	<div id ="headermenu">
+	
+		<div>
+		<a href="list_users">
+		<img src="..images/users.png" />  <br/> Users </a> 
+	
+		<div>
+		<a href="list_category">
+		<img src="..images/categoriesIcon.png" />  <br/> Categories</a> 
+		</div>
+		
+		<div>
+		<a href="products">
+		<img src = "..images/productsIcon.png" /> <br/> Products</a> 
+		</div>
+		
+		<div>
+		<a href="Customers">
+		<img src = "..images/customerIcon.png" /> <br>  Customers </a> 
+		</div>	
+		
+		<div> 
+		<a href="orders">
+		<img src = "..images/orderIcon.png" /> <br/> Orders </a> 
+		</div>
+	
+		<div>
+		<a href="reviews">
+		<img src = "..images/ratingsIconultimate.png" /> <br/> Reviews </a> 
+		</div>
+	 
+	
 	</div>
 </div>

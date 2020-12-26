@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Opule Accessories Administration</title>
+<link rel ="stylesheet" href= "/Applications/uniwork/FinalProjectt/WebContent/css/style.css" >
 </head>
 <body>
 
