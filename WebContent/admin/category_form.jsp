@@ -7,6 +7,7 @@
 <head>
 
 <meta charset="UTF-8">
+<link rel = "stylesheet" href="../css/style.css" >
 </head>
 
 <!-- not working -->
@@ -26,7 +27,7 @@
 	<jsp:directive.include file = "header.jsp"/>
 	
 	<div align="center">
-		<h2> 
+		<h2 class="pageheading"> 
 			<!-- if there is a user object in the request tben display edit user form  -->
 			<c:if test="${category != null}">
 				Edit A Category
@@ -47,7 +48,7 @@
 			<form action="create_category" method="post" onsubmit="return validateFormInput()">	
 		</c:if>
 		
-		<table>
+		<table class="form">
 		<tr> 
 			<td align="right">Name: </td>
 			<td align="left"> <input type="text" id="name" name="name" size="20" value="${category.name}"/> </td>
@@ -55,8 +56,8 @@
 		<tr>
 		<tr><td>&nbsp;</td></tr>
 			<td colspan="2" align="center">
-				<input type="submit" value="Save">
-				<input type="button" value="Cancel" onclick="javascript:history.go(-1);">
+				<button type="submit"> Save </button>&nbsp;&nbsp;&nbsp;&nbsp;
+				<button onclick="javascript:history.go(-1);">Cancel</button>
 				</td>
 		</table>
 		</form>	

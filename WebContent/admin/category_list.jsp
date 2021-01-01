@@ -8,13 +8,15 @@
 <meta charset="UTF-8">
 
 <title>Manage Categories - Accessories Administration</title>
+<link rel = "stylesheet" href="../css/style.css" >
+
 </head>
 <body>
 
 	<jsp:directive.include file = "header.jsp"/>
 	<div align="center"/>
 	
-	<h2> Category Management </h2>
+	<h2 class="pageheading"> Category Management </h2>
 	<a href= "category_form.jsp"> Create A new Category</a>
 	<br> </br>
 	</div>
@@ -22,7 +24,7 @@
 	<c:if test="${message !=null }">
 	<div align="center"> 
 	 
-		<h3> <i>${message}</i> </h3>
+		<h3 class = "message">${message}</h3>
 	</div>
 	</c:if>
 	

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 //superclass that contains all the common fields/code for the subclasses
 
 
-@WebServlet("/")
+//@WebServlet("/") // /
 public class BasisServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
