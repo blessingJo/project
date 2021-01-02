@@ -9,6 +9,8 @@
 
 <title>Manage Categories - Accessories Administration</title>
 <link rel = "stylesheet" href="../css/style.css" >
+<script type = "text/javascript" src ="../js/jquery-3.5.1.min.js"> </script>
+<script type = "text/javascript" src ="../js/jquery.validate.min.js" > </script>
 
 </head>
 <body>
@@ -48,7 +50,7 @@
 					<a href="edit_category?id=${categ.categoryId}">Edit</a> &nbsp;
 					<!--Use of javascript to show the delete user dialog popuo, confirmDelete method/function will be invoked 
 						2. passing the value of the current(chosen) user to the dialog  -->
-					<a href="javascript:confirmDelete(${categ.categoryId})">Delete</a>
+					<a href="javascript:void(0);" class="deleteLink" id="${categ.categoryId}">Delete</a>
 				</td>
 		
 			</tr>
@@ -62,11 +64,21 @@
 		2.if user/admin confirms the deletion, DeleteUserServlet will be called to perform the delete method
 		3.Pass the id of the selected user to the deleteUserServlet-->	
 	 <script>
-		function confirmDelete(categoryId) {
-			if (confirm('Are you sure you want to delete the category with ID ' + categoryId + '?')) {
-			window.location = 'delete_category?id=' + categoryId;	
-			}
-		}
+		
+	 $(document).ready(function() {
+			$(".deleteLink").each(function() {
+				$(this).on("click", function() {
+					
+					categoryId = $(this).attr("id");
+					if (confirm('Are you sure you want to delete the category with ID' + categoryId + '?')) {
+						window.location = 'delete_category?id=' + categoryId;	
+					}					
+				})
+			})			
+		}); 
+	 
+	 
+	 
 	</script>
 
 </body>

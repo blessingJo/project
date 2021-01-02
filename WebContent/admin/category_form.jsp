@@ -8,6 +8,8 @@
 
 <meta charset="UTF-8">
 <link rel = "stylesheet" href="../css/style.css" >
+<script type = "text/javascript" src ="../js/jquery-3.5.1.min.js"> </script>
+<script type = "text/javascript" src ="../js/jquery.validate.min.js" > </script>
 </head>
 
 <!-- not working -->
@@ -40,12 +42,12 @@
 	therefore i've used another JSTL if statement -->	
 	<div align="center">
 		<c:if test="${category != null}">
-			<form action="update_category" method="post" onsubmit="return validateFormInput()">	
+			<form action="update_category" method="post" id="categoryForm">	
 			<input type="hidden" name="id" value = "${category.categoryId}">
 		</c:if>
 		
 		<c:if test="${category == null}">
-			<form action="create_category" method="post" onsubmit="return validateFormInput()">	
+			<form action="create_category" method="post" id="categoryForm">	
 		</c:if>
 		
 		<table class="form">
@@ -57,7 +59,7 @@
 		<tr><td>&nbsp;</td></tr>
 			<td colspan="2" align="center">
 				<button type="submit"> Save </button>&nbsp;&nbsp;&nbsp;&nbsp;
-				<button onclick="javascript:history.go(-1);">Cancel</button>
+				<button id="buttonCancel">Cancel</button>
 				</td>
 		</table>
 		</form>	
@@ -70,17 +72,22 @@
 
 <script type="text/javascript">
 
-	function validateFormInput(){
-		var fieldName = document.getElementById("name");
-
-			if(fieldName.value.length ==0) {
-				alert("Invalid Category Name Input");
-				fieldName.focus();
-				return false;
+$(document).ready(function() {
+	$("#categoryForm").validate({
+		rules: {
+			name: "required",
+		},
+		
+		messages: {
+			messages:"Please enter the category name",
+				
 			}
-			
-			return true;
-	}
+	});
+		$("#buttonCancel").click(function() {
+			history.go(-1);
+		
+	});
+});
 		
 </script>
 	

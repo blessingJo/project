@@ -8,7 +8,8 @@
 <meta charset="UTF-8">
 <title>Manage Users Administration</title>
 <link rel = "stylesheet" href="../css/style.css" >
-
+<script type = "text/javascript" src ="../js/jquery-3.5.1.min.js"> </script>
+<script type = "text/javascript" src ="../js/jquery.validate.min.js" > </script>
 </head>
 <body>
 
@@ -46,7 +47,7 @@
 					<a href="edit_user?id=${user.userId}">Edit</a> &nbsp;
 					<!--Use of javascript to show the delete user dialog popuo, confirmDelete method/function will be invoked 
 						2. passing the value of the current(chosen) user to the dialog  -->
-					<a href="javascript:confirmDelete(${user.userId})">Delete</a>
+					<a href="javascript:void(0);"  id="${user.userId}" class="deleteLink">Delete</a>
 				</td>
 		
 			</tr>
@@ -57,13 +58,22 @@
 
 	<!-- Declare userId in function to be able to show the user ID in the confirmation dialog 
 		2.if user/admin confirms the deletion, DeleteUserServlet will be called to perform the delete method
-		3.Pass the id of the selected user to the deleteUserServlet-->	
-	<script>
-		function confirmDelete(userId) {
-			if (confirm('Are you sure you want to delete the user with ID' + userId + '?')) {
-			window.location = 'delete_user?id=' + userId;	
-			}
-		}
+		3.Pass the id of the selected user to the deleteUserServlet
+		4. selector to select all elements with the class delete link line 66 with-->	
+		
+	<script> 
+	
+		$(document).ready(function() {
+			$(".deleteLink").each(function() {
+				$(this).on("click", function() {
+					
+					userId = $(this).attr("id");
+					if (confirm('Are you sure you want to delete the user with ID' + userId + '?')) {
+						window.location = 'delete_user?id=' + userId;	
+					}					
+				})
+			})			
+		});
 	</script>
 
 </body>

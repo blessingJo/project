@@ -56,7 +56,7 @@
 		<tr><td>&nbsp;</td></tr>
 			<td colspan="2" align="center">
 				<button type="submit"> Save </button>&nbsp;&nbsp;&nbsp;&nbsp;
-				<button onclick="javascript:history.go(-1);">Cancel</button>
+				<button id="buttonCancel">Cancel</button>
 				</td>
 		</table>
 		</form>	
@@ -74,47 +74,35 @@
 	$(document).ready(function() {
 		$("#userForm").validate({
 			rules: {
-				email: "required",
+				email: {
+					required: true,
+					email:true					
+				},
+				
 				fullname: "required",
 				password: "required",		
 			},
 			
 			messages: {
-				email: "Please enter an email",
+				email: {
+					required: "Please enter an email",
+					email: "Please enter a valid email address"
+					
+				},
+				
 				fullname: "Please enter the full name",
-				password: "Please enter the password",
+				password: "Please enter the password"
 			}
+			
+		});
+		
+		$("#buttonCancel").click(function() {
+			history.go(-1);
 			
 		});
 		
 	});
 	
-	
-	function validateFormInput(){
-		var fieldEmail = document.getElementById("email");
-		var fieldFullname = document.getElementById("fullname");
-		var fieldPassword = document.getElementById("password");
-
-			if(fieldEmail.value.length ==0) {
-				alert("Invalid Email Input");
-				fieldEmail.focus();
-				return false;
-			}
-			
-			if(fieldFullname.value.length ==0) {
-				alert("Full Name must not be left blank");
-				fieldFullname.focus();
-				return false;
-			}
-			
-			if(fieldPassword.value.length ==0) {
-				alert("A Password Input is required");
-				fieldPassword.focus();
-				return false;
-			}
-			
-			return true;
-	}
 		
 </script>
 	
