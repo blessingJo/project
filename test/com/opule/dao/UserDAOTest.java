@@ -140,6 +140,28 @@ public class UserDAOTest extends CommonBaseDAOTest{
 		assertNotNull(user);
 	}
 	
+	//check adminlogin
+	@Test
+	public void testAdminEmailPass() {
+		//email exists in database
+		String email = "jess@opacc.co";
+		String password = "garden12";
+		boolean loginResult = userDAO.checkLogin(email, password);
+		assertTrue(loginResult);
+		
+	}
+	
+	//adminlogin
+	@Test
+	public void testAdminEmailFail() {
+		//nonexistent email in database
+		String email = "khan@opacc.co";
+		String password = "gaen12";
+		boolean loginResult = userDAO.checkLogin(email, password);
+		assertFalse(loginResult);
+		
+	}
+	
 	
 	
 	

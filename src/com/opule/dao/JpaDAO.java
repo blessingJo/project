@@ -2,6 +2,8 @@ package com.opule.dao;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -75,6 +77,19 @@ public class JpaDAO<E> {
 			Query query = entityManager.createNamedQuery(queryName);
 			
 			query.setParameter(paramName, paramValue);
+			return query.getResultList();
+		}
+		
+		////overload method of fWNQ
+		
+		public List<E> findWithNamedQuery(String queryName, Map<String, Object> parameters) {
+			Query query = entityManager.createNamedQuery(queryName);
+			//iterate throufh the entrySet of the parameters
+			Set<Entry<String, Object>> rawParameters = parameters.entrySet();
+			//gets all entries of the map as a set, to use each statement to iterate through the elements in the set
+			for (Entry<String, Object> entry :rawParameters) {		
+				query.setParameter(entry.getKey(), entry.getValue());
+			} 
 			return query.getResultList();
 		}
 		

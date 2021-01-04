@@ -15,8 +15,9 @@ import javax.persistence.NamedQuery;
 	@NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u ORDER BY u.fullName"),// : colon indicates a placeholder for a parameter - :email is defined in UserDAO
 	@NamedQuery(name = "Users.countAll", query = "SELECT Count(*) FROM Users u"),
 	// colon indicates defined parameter
-	@NamedQuery(name = "Users.findByEmail", query = "SELECT u FROM Users u WHERE u.email = :email")
-
+	@NamedQuery(name = "Users.findByEmail", query = "SELECT u FROM Users u WHERE u.email = :email"),
+	//checklogin query
+	@NamedQuery(name = "Users.checkLogin", query = "SELECT u FROM Users u WHERE u.email = :email AND password:=password")
 
 })
 //@Table(name = "table name") only used if the class name is diff to table name in db

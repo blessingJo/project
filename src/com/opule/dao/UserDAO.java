@@ -1,6 +1,8 @@
 package com.opule.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 
@@ -55,6 +57,24 @@ public class UserDAO extends JpaDAO<Users> implements GenericDAO<Users> {
 		}
 		
 		return null;
+	}
+	
+	//checklogin method oor admin lgin page
+	public boolean checkLogin(String email, String password) {
+		//^^boolean value to indicate login info is correct
+		Map<String, Object> parameters = new HashMap<>();
+		parameters.put("email", email);
+		parameters.put("password", password);
+		
+		List<Users> listUsersAdmin = super.findWithNamedQuery("Users.checkLogin", parameters);
+		//expecting only one user with email and password to be returned for admin
+		if(listUsersAdmin.size()==1) {
+			return true;
+		}
+		
+		
+		
+		return false;
 	}
 	
 }
