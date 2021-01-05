@@ -148,5 +148,32 @@ public class UserServices {
 			listUser(message);
 			
 		}
+		
+		public void login() throws ServletException, IOException {
+			
+			String email = request.getParameter("email");
+			String password = request.getParameter("password");
+			//call checkLogin method check of userDAO class
+			boolean loginResult = userDAO.checkLogin(email, password);
+			
+			if (loginResult) {
+	
+				//craetes a new session if no session exists before
+				request.getSession().setAttribute("useremail", email);
+				//show admin homepage after autherntication
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/");
+				dispatcher.forward(request, response);
+				
+			}
+			else  {
+				String message = "login failed!"; 
+				request.setAttribute("message", message);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+				dispatcher.forward(request, response);
+				
+				
+			}
+			
+		}
 
 }

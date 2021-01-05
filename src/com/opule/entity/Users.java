@@ -17,7 +17,7 @@ import javax.persistence.NamedQuery;
 	// colon indicates defined parameter
 	@NamedQuery(name = "Users.findByEmail", query = "SELECT u FROM Users u WHERE u.email = :email"),
 	//checklogin query
-	@NamedQuery(name = "Users.checkLogin", query = "SELECT u FROM Users u WHERE u.email = :email AND password:=password")
+	@NamedQuery(name = "Users.checkLogin", query = "SELECT u FROM Users u WHERE u.email = :email AND password = :password")
 
 })
 //@Table(name = "table name") only used if the class name is diff to table name in db
