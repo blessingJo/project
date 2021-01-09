@@ -91,7 +91,27 @@ public class ProductDAOTest extends CommonBaseDAOTest{
 		productDao.delete(productId);
 		
 		assertTrue(true);
+		
 	}
+	
+	@Test//(expected = EntityNotFoundException.class)
+	public void testGetProductFailed() {
+		Integer productId = 89;
+		Product product = productDao.get(productId);
+	
+		assertNull(product);
+	}
+	
+	@Test//(expected = EntityNotFoundException.class)
+	public void testGetProductSuccessful() {
+		Integer productId = 35;
+		Product product = productDao.get(productId);
+	
+		assertNotNull(product);
+	}
+	
+	
+	
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 	CommonBaseDAOTest.tearDownAfterClass();

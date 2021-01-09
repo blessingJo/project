@@ -30,7 +30,7 @@ public class ProductDAO extends JpaDAO<Product> implements GenericDAO<Product> {
 
 	@Override
 	public Product get(Object productId) {
-		return null;
+		return super.find(Product.class, productId);
 	}
 
 	@Override
