@@ -7,6 +7,8 @@ import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -54,7 +56,7 @@ public class ProductDAOTest extends CommonBaseDAOTest{
 	}
 	
 	@Test
-public void testUpdateProduct() throws IOException {
+	public void testUpdateProduct() throws IOException {
 		
 		Product existProduct = new Product();
 		existProduct.setProductId(35);
@@ -76,6 +78,20 @@ public void testUpdateProduct() throws IOException {
 		
 	}
 	
+	@Test(expected = EntityNotFoundException.class)
+	public void testDeleteProductFailed() {
+		Integer productId = 109;
+		productDao.delete(productId);
+		
+	}
+	
+	@Test
+	public void testDeleteProductPass() {
+		Integer productId = 37;
+		productDao.delete(productId);
+		
+		assertTrue(true);
+	}
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 	CommonBaseDAOTest.tearDownAfterClass();
