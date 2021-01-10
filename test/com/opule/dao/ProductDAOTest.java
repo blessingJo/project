@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -108,6 +109,18 @@ public class ProductDAOTest extends CommonBaseDAOTest{
 		Product product = productDao.get(productId);
 	
 		assertNotNull(product);
+	}
+	
+	@Test
+	public void testGetAll() {
+		List<Product> listProducts = productDao.listAll();
+		
+			for (Product product :listProducts) {
+				System.out.println(product.getTitle());
+			}
+		
+		assertFalse(listProducts.isEmpty());
+		
 	}
 	
 	
