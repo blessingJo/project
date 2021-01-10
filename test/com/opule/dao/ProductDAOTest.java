@@ -143,6 +143,14 @@ public class ProductDAOTest extends CommonBaseDAOTest{
 				
 	}
 	
+	@Test
+	public void testTheCount() {
+		long totalProducts = productDao.count();
+		
+		assertEquals(2, totalProducts);
+		
+	}
+	
 	
 	
 	@AfterClass

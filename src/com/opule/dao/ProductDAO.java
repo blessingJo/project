@@ -65,7 +65,7 @@ public class ProductDAO extends JpaDAO<Product> implements GenericDAO<Product> {
 	@Override
 	public long count() {
 		// TODO Auto-generated method stub
-		return 0;
+		return super.countWithNamedQuery("Product.countAll");
 	}
 	
 
