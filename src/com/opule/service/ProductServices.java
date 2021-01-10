@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.opule.dao.CategoryDAO;
 import com.opule.dao.ProductDAO;
+import com.opule.entity.Category;
 import com.opule.entity.Product;
 
 public class ProductServices {
@@ -19,6 +20,7 @@ public class ProductServices {
 	//CategoryDAO class requires an entity Manager from EMF
 	private HttpServletRequest request;
 	private HttpServletResponse response;
+	private CategoryDAO categoryDAO;
 	
 	//list book method
 	public void listBooks() {
@@ -34,7 +36,9 @@ public class ProductServices {
 		//this.categoryDAO = categoryDAO;
 		this.request = request;
 		this.response = response;
+		categoryDAO = new CategoryDAO(entityManager);
 		productDAO = new ProductDAO(entityManager);
+		
 	}
 
 	public void listProducts() throws ServletException, IOException {
@@ -49,7 +53,21 @@ public class ProductServices {
 		//forwarding the request
 		requestDispatcher.forward(request,  response);
 		// TODO Auto-generated method stub
-		
 	}
+		
+	
+		public void newProductForm() throws ServletException, IOException {
+			//retrieve a list of the catgogies
+			List<Category> categoryList = categoryDAO.listAll();
+			//storing the objects in a request attribute
+			request.setAttribute("listCategory",  categoryList);
+			//then forward the products to productlist jsp page using a dispatcher
+			String pageLists = "product_FormNew.jsp";
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher(pageLists);
+			//forwarding the request
+			requestDispatcher.forward(request,  response);
+			
+		}
+	
 
 }

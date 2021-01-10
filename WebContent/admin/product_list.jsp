@@ -15,8 +15,8 @@
 
 	<jsp:directive.include file = "header.jsp"/>
 	<div align="center"/>
-	<h2 class="pageheading"> ProductManagement </h2>
-	<a href= "product_form.jsp"> Create new Product</a>
+	<h2 class="pageheading"> Product Management </h2>
+	<a href= "product_FormNew"> Create new Product</a>
 	<br> </br>
 	</div>
 	
