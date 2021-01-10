@@ -44,13 +44,29 @@ public class ProductDAO extends JpaDAO<Product> implements GenericDAO<Product> {
 	public List listAll() {
 		
 		// TODO Auto-generated method stub
+		
+		
 		return super.findWithNamedQuery("Product.findAll");
 	}
+	
+	public Product findByTitle(String title) {
+		List <Product> list = super.findWithNamedQuery("Product.findByTitle", "title", title);
+		
+		if(!list.isEmpty()) {
+			return list.get(0);
+		}
+		
+		
+		return null;
+		
+	}
+
 
 	@Override
 	public long count() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
 
 }

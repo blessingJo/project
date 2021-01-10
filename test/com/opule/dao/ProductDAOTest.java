@@ -44,8 +44,8 @@ public class ProductDAOTest extends CommonBaseDAOTest{
 		category.setCategoryId(13);
 		newProduct.setCategory(category);
 		
-		newProduct.setTitle("testing");
-		newProduct.setDescription("fdjosdo");
+		newProduct.setTitle("Diamonds");
+		newProduct.setDescription("The best diamonds in the world");
 		newProduct.setPrice(40.88f);
 		
 		String imagePath =  "/Applications/uniwork/FinalProjectt/productInformation/hoopEarrings.jpeg";
@@ -121,6 +121,26 @@ public class ProductDAOTest extends CommonBaseDAOTest{
 		
 		assertFalse(listProducts.isEmpty());
 		
+	}
+	
+	@Test
+	public void testFindByTitleSuccess() {
+		String title = "hoops";
+		Product product = productDao.findByTitle(title);
+		
+		assertNotNull(product);
+		
+				
+	}
+	
+	@Test
+	public void testFindByTitleFail() {
+		String title = "Doesn't Exist";
+		Product product = productDao.findByTitle(title);
+		
+		assertNull(product);
+		
+				
 	}
 	
 	
