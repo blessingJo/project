@@ -1,9 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div align = "center">
 
-	<div>
-		<img src= "../images/logo.jpeg" />
-	</div>
+	
 
 	<div>
 	<!--  use of jstl to display currently logged user's email -->
@@ -23,7 +21,7 @@
 		</div>
 		
 		<div>
-		<a href="products">
+		<a href="list_products">
 		<img src = "../images/productsIcon.jpeg" /> <br/> Products</a> 
 		</div>
 		
