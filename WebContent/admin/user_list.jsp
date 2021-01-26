@@ -18,7 +18,7 @@
 	<h2 class="pageheading"> User Management </h2>
 	<a href= "user_form.jsp"> Create new User</a>
 	<br> </br>
-	</div>
+	</div> 
 	
 	<c:if test="${message !=null}">
 	<div align="center">  

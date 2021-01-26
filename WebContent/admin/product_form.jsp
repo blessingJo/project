@@ -30,30 +30,28 @@
 <!-- Create Product 'save' function cannot be used for the edit product page
 	therefore i've used another JSTL if statement -->	
 	<div align="center">
-		<c:if test="${product != null}">
+		<c:if test="${Product != null}">
 			<form action="update_product" method="post" id="productForm">	
-			<input type="hidden" name="productId" value = "${product.productId }">
+			<input type="hidden" name="productId" value = "${product.productId}">
 		</c:if>
 		
-		<c:if test="${product == null}">
-			<form action="create_product" method="post" id="productForm" >	
+		<c:if test="${Product == null}">
+			<form action="create_product" method="post" id="productForm" enctype= "multipart/form-data">	
 		</c:if>
 		
 		<table class="form">
-		<tr> 
-		
+		<tr> 	
 		<td>Category: </td>
 		<td> 
-			<select name = "category">
-			<c:forEach items = "${listCategory}" var="category">
-				<option value = "${category.categoryId}">
+			<select name ="category">
+			<c:forEach items="${listCategory}" var="category" >
+				<option value="${category.categoryId}">
 					${category.name}
 				</option>				
 			</c:forEach>
 			</select>
 			</td>
 			</tr>
-			
 			<tr>
 			
 			<td align="right">Title: </td>
@@ -67,8 +65,9 @@
 			<tr>
 			
 			<td align="right">Image: </td>
-			<td align="left"> <input type="file" id="productImage" name="productImage" size="20"/> </td>
-			
+			<td align="left"> <input type="file" id="productImage" name="productImage" size="20"/> 
+			<img id="thumbnail" alt= "Image Review" style="width:30%; margin-top: 15px" />
+			</td>
 			
 			</tr>
 			
@@ -99,30 +98,29 @@
 	
  
 	$(document).ready(function() {
+		$('#productImage').change(function() {
+			showingImageThumbnail(this);
+			
+		});
 		$("#productForm").validate({
 			rules: {
-				email: {
-					required: true,
-					email:true					
-				},
-				
-				fullname: "required",
-				password: "required",		
+				title: "required",
+				productImage: "required", 
+				price: "required",	
+				description: "required", 
+				category: "required",
 			},
 			
 			messages: {
-				email: {
-					required: "Please enter an email",
-					email: "Please enter a valid email address"
-					
-				},
-				
-				fullname: "Please enter the full name",
-				password: "Please enter the password"
-			}
-			
-		});
-		
+					title: "Please enter the product title",
+					productImage: "Please upload a product Image",
+					price: "Please enter the price of the product",
+					description: "Please enter a description of the product",
+					category: "Please select a category"
+					 //category: "Please select a category for the product"
+				}		
+			}); 
+		 
 		$("#buttonCancel").click(function() {
 			history.go(-1);
 			
@@ -130,6 +128,20 @@
 		
 	});
 	
+	
+	function showingImageThumbnail(fileInput) {
+		var file = fileInput.files[0];
+		
+		var filereader = new FileReader();
+		
+		reader.onload = function(e) { 
+			$('#thumbnail').attr('src', e.target.result);
+			
+		};
+		
+		reader.readAsDataURL(file);
+					
+		}
 		
 </script>
 	

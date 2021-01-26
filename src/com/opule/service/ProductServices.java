@@ -1,6 +1,7 @@
 package com.opule.service;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -8,6 +9,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import com.opule.dao.CategoryDAO;
 import com.opule.dao.ProductDAO;
@@ -16,32 +18,32 @@ import com.opule.entity.Product;
 
 public class ProductServices {
 	private EntityManager entityManager;
-	private ProductDAO productDAO;
 	//CategoryDAO class requires an entity Manager from EMF
 	private HttpServletRequest request;
 	private HttpServletResponse response;
+	private ProductDAO productDAO;
 	private CategoryDAO categoryDAO;
 	
-	//list book method
-	public void listBooks() {
-		
-		
-		
-	}
+
 
 	public ProductServices(EntityManager entityManager, HttpServletRequest request,
 			HttpServletResponse response) {
 		super();
-		this.entityManager = entityManager;
-		//this.categoryDAO = categoryDAO;
 		this.request = request;
 		this.response = response;
-		categoryDAO = new CategoryDAO(entityManager);
+		this.entityManager = entityManager;
+		//this.categoryDAO = categoryDAO;
+		//this.request = request;
 		productDAO = new ProductDAO(entityManager);
-		
+		categoryDAO = new CategoryDAO(entityManager);
+
+	}
+	
+	public void listProducts() throws ServletException, IOException {
+		listProducts(null);
 	}
 
-	public void listProducts() throws ServletException, IOException {
+	public void listProducts(String message) throws ServletException, IOException {
 		
 	//returns list objects
 		List<Product> listProducts = productDAO.listAll();
@@ -57,17 +59,91 @@ public class ProductServices {
 		
 	
 		public void newProductForm() throws ServletException, IOException {
-			//retrieve a list of the catgogies
-			List<Category> categoryList = categoryDAO.listAll();
+			//retrieve a list of the catgogies 
+			List<Category> listCategory = categoryDAO.listAll();
 			//storing the objects in a request attribute
-			request.setAttribute("listCategory",  categoryList);
+			request.setAttribute("listCategory",  listCategory);
 			//then forward the products to productlist jsp page using a dispatcher
-			String pageLists = "product_FormNew.jsp";
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher(pageLists);
+			String e = "product_form.jsp";
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher(e);
 			//forwarding the request
-			requestDispatcher.forward(request,  response);
+			requestDispatcher.forward(request, response);
 			
 		}
-	
+
+		public void createProduct() throws IOException, ServletException {
+			//reading all the fields submitted in create product form
+			Integer categoryId = Integer.parseInt(request.getParameter("category")); 
+			String title = request.getParameter("title");
+			
+			//checking that the title doesn't exist already 
+			//Product existingProductTitle = productDAO.findByTitle(title);
+				//String message = "Product could not be created because the title" + productTitle +" is already assigned to another product";
+				//request.setAttribute("message", message);
+			float productPrice = Float.parseFloat(request.getParameter("price"));
+			String description = request.getParameter("description");
+			//String productTitle = request.getParameter("title");
+			 
+			System.out.println("The Category ID: " + categoryId); 
+			System.out.println("The product title: " + title); 
+			System.out.println("The product price: " + productPrice);
+			System.out.println("The product description ID: " + description);
+			
+ 
+			//new product object 
+			Product newProduct = new Product();
+			
+			Category categories = categoryDAO.get(categoryId);
+			newProduct.setCategory(categories); 
+			//setting the values
+			newProduct.setTitle(title);
+			//retrieve a category from the database and set the category object to the product object
+			//use of category DAO class			
+			
+			newProduct.setPrice(productPrice);
+			newProduct.setDescription(description);
+			
+			
+			
+			
+			//retrieve image data from the multi part request, throws IO exception
+			//read the data of the file uploaded in create product form into an array of bytes
+			Part multipart = request.getPart("productImage");
+			//check if path is not null 
+			if (multipart != null && multipart.getSize() > 0) {
+				long size = multipart.getSize(); //get the size of the part
+				byte[] imageBytes = new byte[(int) size];  //create an array of bytes,cast to int 
+				
+				//open the input steam from the part
+				InputStream iStream = multipart.getInputStream();
+				//read to a byte array imageBytes
+				iStream.read(imageBytes);
+				//close the input stream
+				iStream.close();
+				
+				//set the array of bytes of the image to the product
+				newProduct.setImage(imageBytes);
+			}
+			
+		//read the data into a byte array from the path if condition is met
+		
+			//calling create method in productDAO to save the newly created product
+			
+			Product createdProduct = productDAO.create(newProduct);
+			
+			//checking if the product has been created successfully and displaying a message
+			
+			if (createdProduct.getProductId() > 0) {
+				String message = "The new product has been successfully created";	
+				
+				//setting the message as request attribute
+				request.setAttribute("message", message);
+				//refresh the list of products
+				listProducts(); 		
+				
+			}
+		
+		}
+	 
 
 }

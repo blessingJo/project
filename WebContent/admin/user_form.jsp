@@ -25,7 +25,7 @@
 			<c:if test="${user == null}">
 				Create New User 
 			</c:if>
-			</h2>
+			</h2> 
 	</div>
 <!-- Create User 'save' function cannot be used for the edit user page
 	therefore i've used another JSTL if statement -->	
