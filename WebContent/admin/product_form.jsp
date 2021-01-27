@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Create New Product</title>
-<link rel = "stylesheet" href="../css/style.css" >
+<link rel = "stylesheet" href="../css/style.css" > 
 
 <script type = "text/javascript" src ="../js/jquery-3.5.1.min.js"> </script>
 <script type = "text/javascript" src ="../js/jquery.validate.min.js" > </script>
@@ -15,7 +15,7 @@
 <body>
 
 	<jsp:directive.include file = "header.jsp"/>
-	<div align="center">
+	<div align="center"> 
 		<h2 class="pageheading"> 
 			<!-- if there is a product object in the request tben display edit product form  -->
 			<c:if test="${product != null}">
@@ -30,13 +30,13 @@
 <!-- Create Product 'save' function cannot be used for the edit product page
 	therefore i've used another JSTL if statement -->	
 	<div align="center">
-		<c:if test="${Product != null}">
-			<form action="update_product" method="post" id="productForm">	
+		<c:if test="${product != null}">
+			<form action="update_product" method="post" id="productForm" enctype="multipart/form-data">	
 			<input type="hidden" name="productId" value = "${product.productId}">
 		</c:if>
 		
-		<c:if test="${Product == null}">
-			<form action="create_product" method="post" id="productForm" enctype= "multipart/form-data">	
+		<c:if test="${product == null}">
+			<form action="create_product" method="post" id="productForm" enctype="multipart/form-data">	
 		</c:if>
 		
 		<table class="form">
@@ -44,14 +44,20 @@
 		<td>Category: </td>
 		<td> 
 			<select name ="category">
-			<c:forEach items="${listCategory}" var="category" >
-				<option value="${category.categoryId}">
-					${category.name}
-				</option>				
+			<c:forEach items="${listCategory}" var="category">
+			<c:if test = "${category.categoryId eq product.category.categoryId}">
+					<option value="${category.categoryId}" selected />
+			
+			</c:if>
+			<c:if test = "${category.categoryId ne product.category.categoryId}">
+					<option value="${category.categoryId}" />
+			</c:if>
+					${category.name}				
 			</c:forEach>
 			</select>
 			</td>
 			</tr>
+			
 			<tr>
 			
 			<td align="right">Title: </td>
@@ -62,20 +68,22 @@
 			<td align="left"> <input type="text" id="price" name="price" size="20" value="${product.price}"/> </td>
 			</tr>
 			
-			<tr>
+		<tr>
 			
 			<td align="right">Image: </td>
-			<td align="left"> <input type="file" id="productImage" name="productImage" size="20"/> 
-			<img id="thumbnail" alt= "Image Review" style="width:30%; margin-top: 15px" />
-			</td>
+			<td align="left"> <input type="file" id="productImage" name="productImage" size="20"> 
+			<img id="thumbnail" alt= "Image Review" style="width:30%; margin-top: 15px"
+					src= "data:image/jpg;base64, ${product.base64Image}" />
+					</td>
 			
-			</tr>
+		</tr>
 			
 			<tr>
 			
 			<td align="right">Description: </td>
 			<td align="left"> 
-				<textarea rows = "5" cols = "50" name ="description" id="description"> </textarea>
+				<textarea rows = "5" cols = "50" name ="description" id="description">${product.description}</textarea>
+			</td>
 			</tr>
 			
 		<tr>
@@ -84,10 +92,8 @@
 				<button type="submit"> Save </button>&nbsp;&nbsp;&nbsp;&nbsp;
 				<button id="buttonCancel">Cancel</button>
 				</td>
-		</table>
-		</form>	
-		</form>
-	</table>
+		</table>	
+	</form>
 </div>	
 
 	<jsp:directive.include file = "footer.jsp"/>
@@ -105,7 +111,11 @@
 		$("#productForm").validate({
 			rules: {
 				title: "required",
-				productImage: "required", 
+				
+				<c:if test = "${product == null}">
+				productImage: "required",
+				</c:if>, 
+				
 				price: "required",	
 				description: "required", 
 				category: "required",

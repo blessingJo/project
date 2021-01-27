@@ -17,7 +17,7 @@
 	<div align="center"/>
 	<h2 class="pageheading"> Product Management </h2>
 	<a href= "new_product"> Create new Product</a>
-	<br> </br>
+	<br> </br> 
 	</div>
 	
 	<c:if test="${message !=null}">

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
@@ -15,6 +16,7 @@ import com.opule.dao.CategoryDAO;
 import com.opule.dao.ProductDAO;
 import com.opule.entity.Category;
 import com.opule.entity.Product;
+
 
 public class ProductServices {
 	private EntityManager entityManager;
@@ -70,10 +72,11 @@ public class ProductServices {
 			requestDispatcher.forward(request, response);
 			
 		}
-
-		public void createProduct() throws IOException, ServletException {
-			//reading all the fields submitted in create product form
-			Integer categoryId = Integer.parseInt(request.getParameter("category")); 
+		
+		public void readProductFields(Product product) throws IOException, ServletException {
+			Integer categoryId = Integer.parseInt(request.getParameter("categoryId")); 
+			
+			//String category = request.getParameter("category");
 			String title = request.getParameter("title");
 			
 			//checking that the title doesn't exist already 
@@ -82,37 +85,30 @@ public class ProductServices {
 				//request.setAttribute("message", message);
 			float productPrice = Float.parseFloat(request.getParameter("price"));
 			String description = request.getParameter("description");
-			//String productTitle = request.getParameter("title");
-			 
-			System.out.println("The Category ID: " + categoryId); 
-			System.out.println("The product title: " + title); 
-			System.out.println("The product price: " + productPrice);
-			System.out.println("The product description ID: " + description);
 			
- 
+			
 			//new product object 
-			Product newProduct = new Product();
+			//Product product = new Product();
 			
 			Category categories = categoryDAO.get(categoryId);
-			newProduct.setCategory(categories); 
+			//Category categories = categoryDAO.get(Integer.parseInt(categories));
+			product.setCategory(categories); 
 			//setting the values
-			newProduct.setTitle(title);
+			product.setTitle(title);
 			//retrieve a category from the database and set the category object to the product object
 			//use of category DAO class			
 			
-			newProduct.setPrice(productPrice);
-			newProduct.setDescription(description);
-			
-			
-			
+			product.setPrice(productPrice);
+			product.setDescription(description);
 			
 			//retrieve image data from the multi part request, throws IO exception
 			//read the data of the file uploaded in create product form into an array of bytes
 			Part multipart = request.getPart("productImage");
+			byte [] imageBytes = null;
 			//check if path is not null 
 			if (multipart != null && multipart.getSize() > 0) {
 				long size = multipart.getSize(); //get the size of the part
-				byte[] imageBytes = new byte[(int) size];  //create an array of bytes,cast to int 
+				imageBytes = new byte[(int) size];  //create an array of bytes,cast to int 
 				
 				//open the input steam from the part
 				InputStream iStream = multipart.getInputStream();
@@ -122,8 +118,19 @@ public class ProductServices {
 				iStream.close();
 				
 				//set the array of bytes of the image to the product
-				newProduct.setImage(imageBytes);
+				product.setImage(imageBytes);
 			}
+			
+		}
+
+		public void createProduct() throws IOException, ServletException {
+			//reading all the fields submitted in create product form
+			
+		//	Integer categoryId = Integer.parseInt(request.getParameter("category")); 
+			String title = request.getParameter("title");
+			
+			Product newProduct = new Product();
+			readProductFields(newProduct);
 			
 		//read the data into a byte array from the path if condition is met
 		
@@ -143,6 +150,43 @@ public class ProductServices {
 				
 			}
 		
+		}
+		
+		public void editProduct() throws ServletException, IOException {
+			//call productDAO to get details of the product, such as the productID
+			Integer produId = Integer.parseInt(request.getParameter("productId")); 
+			//returns a product object
+			Product product = productDAO.get(produId);
+			//setting the product as an attribute in request so it's available in the edit form
+			List<Category> listCategory = categoryDAO.listAll();
+			
+			request.setAttribute("product", product);
+			request.setAttribute("listCategory", listCategory);
+			
+			String editPa = "product_form.jsp";
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher(editPa);
+			requestDispatcher.forward(request, response);
+					
+		}
+		
+		
+
+		public void updateProduct() throws IOException, ServletException {
+			
+			// getting the productID from the form
+			System.out.println("Product ID: " + request.getParameter("productId"));
+			Integer productId = Integer.parseInt(request.getParameter("productId"));
+			
+			Product existingProduct = productDAO.get(productId);
+			//retrieving the existing product in the database and updating it with the new valuesin the form
+			//readinf values from the form 
+			readProductFields(existingProduct); 
+			
+			productDAO.update(existingProduct);
+			
+			String message = "The product has been successfully created";
+			listProducts(message);
+			
 		}
 	 
 
