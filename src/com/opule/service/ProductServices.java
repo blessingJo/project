@@ -154,7 +154,7 @@ public class ProductServices {
 		
 		public void editProduct() throws ServletException, IOException {
 			//call productDAO to get details of the product, such as the productID
-			Integer produId = Integer.parseInt(request.getParameter("productId")); 
+			Integer produId = Integer.parseInt(request.getParameter("id")); 
 			//returns a product object
 			Product product = productDAO.get(produId);
 			//setting the product as an attribute in request so it's available in the edit form
@@ -176,16 +176,38 @@ public class ProductServices {
 			// getting the productID from the form
 			System.out.println("Product ID: " + request.getParameter("productId"));
 			Integer productId = Integer.parseInt(request.getParameter("productId"));
+			String title = request.getParameter("title");
 			
 			Product existingProduct = productDAO.get(productId);
+			Product productByTitle = productDAO.findByTitle(title);
+			
+			if(!existingProduct.equals(productByTitle)) {
+				String message = "Product could not be updated because another product has the same title";
+				listProducts(message);
+				return; 
+			}
+
+			
+			
 			//retrieving the existing product in the database and updating it with the new valuesin the form
 			//readinf values from the form 
 			readProductFields(existingProduct); 
 			
 			productDAO.update(existingProduct);
 			
-			String message = "The product has been successfully created";
+			String message = "The product has been successfully updated";
 			listProducts(message);
+			
+		}
+
+		public void deleteProduct() throws ServletException, IOException {
+			Integer productId = Integer.parseInt(request.getParameter("id"));
+			
+			productDAO.delete(productId);
+			
+			String message = "The product has been successfully deleted";
+			listProducts(message);
+			
 			
 		}
 	 
